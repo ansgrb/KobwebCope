@@ -24,4 +24,14 @@ enum class Theme(
 	BLACK("#000000", rgb(0, 0, 0)),
 	LIGHT("#f4f4f4", rgb(244, 244, 244)),
 	DARK("#111111", rgb(17, 17, 17)),
+
+
+	BACKGROUND("#121212", rgb(18, 18, 18)),
+	SECTION_BG("#1e1e1e", rgb(30, 30, 30)),
+	CARD_BG("#292929", rgb(41, 41, 41)),
+	TEXT_PRIMARY("#ffffff", rgb(255, 255, 255)),
+	TEXT_SECONDARY("#a3a3a3", rgb(163, 163, 163)),
+	ACCENT_TEAL("#2dd4bf", rgb(45, 212, 191)), // used as neon accent (tailwind's teal-400)
+	SHADOW("#000000", rgb(0, 0, 0)) // for subtle shadow
+
 }
