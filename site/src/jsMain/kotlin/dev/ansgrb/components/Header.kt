@@ -2,6 +2,7 @@ package dev.ansgrb.components
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -14,9 +15,12 @@ import com.varabyte.kobweb.compose.ui.modifiers.fontSize
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
 import com.varabyte.kobweb.compose.ui.modifiers.margin
 import com.varabyte.kobweb.compose.ui.modifiers.padding
+import com.varabyte.kobweb.compose.ui.modifiers.textDecorationLine
 import com.varabyte.kobweb.silk.components.navigation.Link
+import com.varabyte.kobweb.silk.style.toModifier
 import dev.ansgrb.models.Section
 import dev.ansgrb.models.Theme
+import dev.ansgrb.styles.NavigationItemStyle
 import dev.ansgrb.util.R
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
@@ -51,9 +55,10 @@ fun Header() {
 				Link(
 					path = section.path ?: section.id,
 					text = section.title,
-					modifier = Modifier
+					modifier = NavigationItemStyle.toModifier()
 						.fontFamily(R.font.roboto.regular)
 						.fontWeight(FontWeight.Normal)
+						.textDecorationLine(TextDecorationLine.None)
 						.fontSize(18.px)
 						.padding(right = 30.px)
 				)
