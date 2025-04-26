@@ -6,6 +6,7 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
 import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
+import dev.ansgrb.components.Header
 import dev.ansgrb.util.Constants.SECTION_WIDTH
 import org.jetbrains.compose.web.css.px
 
@@ -17,6 +18,6 @@ fun MainSection() {
 			.maxWidth(SECTION_WIDTH.px)
 			.fillMaxSize()
 		) {
-
+		Header()
 	}
 }
