@@ -3,6 +3,7 @@ package dev.ansgrb.styles
 import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.color
+import com.varabyte.kobweb.compose.ui.modifiers.transform
 import com.varabyte.kobweb.compose.ui.modifiers.transition
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.selectors.anyLink
@@ -38,6 +39,8 @@ val TitleStyle = CssStyle {
 	}
 	hover {
 		Modifier
-			.color(Theme.PRIMARY.rgb)
+			.color(Theme.BLACK.rgb)
+			.transform { scale(1.1f, 1.1f) }
+			.transition(Transition.all(0.2.s))
 	}
 }
