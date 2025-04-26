@@ -21,10 +21,12 @@ import com.varabyte.kobweb.silk.style.toModifier
 import dev.ansgrb.models.Section
 import dev.ansgrb.models.Theme
 import dev.ansgrb.styles.NavigationItemStyle
+import dev.ansgrb.styles.TitleStyle
 import dev.ansgrb.util.R
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.dom.Text
+import com.varabyte.kobweb.silk.components.text.SpanText
+
 
 @Composable
 fun Header() {
@@ -40,7 +42,13 @@ fun Header() {
 			verticalAlignment = Alignment.CenterVertically,
 			modifier = Modifier.fillMaxWidth(50.percent)
 		) {
-			Text("Ansgr's")
+			SpanText(
+				text = "Ansgr's",
+				modifier = TitleStyle.toModifier()
+					.fontSize(24.px)
+					.fontWeight(FontWeight.Bold)
+			)
+
 		}
 		Row(
 			horizontalArrangement = Arrangement.End,
