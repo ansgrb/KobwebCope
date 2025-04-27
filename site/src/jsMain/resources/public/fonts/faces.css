@@ -1,5 +1,8 @@
 @font-face {
     font-family: 'Noto Sans';
-    src: url("/fonts/NotoSans/NotoSans-Italic-VariableFont_wdth,wght.ttf") format("truetype"),
-    url("/fonts/NotoSans/NotoSans-VariableFont_wdth,wght.ttf") format("truetype");
+    src: url("/fonts/NotoSans/NotoSans-VariableFont_wdth,wght.ttf") format("truetype"),
+    url("/fonts/NotoSans/NotoSans-Italic-VariableFont_wdth,wght.ttf") format("truetype"),
+    url("/fonts/NotoSans/NotoSans-Bold-VariableFont_wdth,wght.ttf") format("truetype"),
+    url("/fonts/NotoSans/NotoSans-BoldItalic-VariableFont_wdth,wght.ttf") format("truetype"),
+    url("/fonts/NotoSans/NotoSans-Regular-VariableFont_wdth,wght.ttf") format("truetype");
 }
