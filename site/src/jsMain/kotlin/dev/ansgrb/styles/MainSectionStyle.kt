@@ -15,31 +15,31 @@ import org.jetbrains.compose.web.css.s
 val NavigationItemStyle = CssStyle {
 	base {
 		Modifier
-			.color(Theme.BLACKED_WHITE.rgb)
+			.color(Theme.TEXT_PRIMARY.rgb)
 			.transition(Transition.all(0.2.s))
 	}
 	anyLink {
 		Modifier
-			.color(Theme.BLACKED_WHITE.rgb)
+			.color(Theme.TEXT_PRIMARY.rgb)
 	}
 	hover {
 		Modifier
-			.color(Theme.PRIMARY.rgb)
+			.color(Theme.TEXT_SECONDARY.rgb)
 	}
 }
 
 val TitleStyle = CssStyle {
 	base {
 		Modifier
-			.color(Theme.BLACK.rgb)
+			.color(Theme.TEXT_PRIMARY.rgb)
 	}
 	anyLink {
 		Modifier
-			.color(Theme.PRIMARY.rgb)
+			.color(Theme.TEXT_PRIMARY.rgb)
 	}
 	hover {
 		Modifier
-			.color(Theme.BLACK.rgb)
+			.color(Theme.TEXT_PRIMARY.rgb)
 			.transform { scale(1.1f, 1.1f) }
 			.transition(Transition.all(0.2.s))
 	}

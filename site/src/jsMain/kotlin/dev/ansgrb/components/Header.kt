@@ -7,9 +7,7 @@ import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
-import com.varabyte.kobweb.compose.ui.modifiers.cursor
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.fontFamily
 import com.varabyte.kobweb.compose.ui.modifiers.fontSize
@@ -21,7 +19,6 @@ import com.varabyte.kobweb.silk.components.icons.fa.FaBars
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.style.toModifier
 import dev.ansgrb.models.Section
-import dev.ansgrb.models.Theme
 import dev.ansgrb.styles.NavigationItemStyle
 import dev.ansgrb.styles.TitleStyle
 import dev.ansgrb.util.R
@@ -31,7 +28,6 @@ import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 
-
 @Composable
 fun Header() {
 	val breakpoint = rememberBreakpoint()
@@ -39,7 +35,7 @@ fun Header() {
 		horizontalArrangement = Arrangement.SpaceBetween,
 		verticalAlignment = Alignment.CenterVertically,
 		modifier = Modifier
-			.fillMaxWidth(80.percent)
+			.fillMaxWidth(if (breakpoint > Breakpoint.MD) 80.percent else 95.percent)
 			.margin(topBottom = 50.px)
 	) {
 		Title(breakpoint = breakpoint)
@@ -86,7 +82,6 @@ private fun Navigation() {
 			.fillMaxWidth()
 			.padding(all = 20.px)
 			.borderRadius(r = 50.px)
-			.backgroundColor(Theme.GRAY.rgb)
 	) {
 		Section.entries.take(5).forEach { section ->
 			Link(
