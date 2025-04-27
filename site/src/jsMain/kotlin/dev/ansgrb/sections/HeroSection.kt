@@ -10,6 +10,7 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
+import com.varabyte.kobweb.compose.ui.modifiers.fontFamily
 import com.varabyte.kobweb.compose.ui.modifiers.fontSize
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
 import com.varabyte.kobweb.compose.ui.modifiers.margin
@@ -31,6 +32,7 @@ fun HeroSection() {
 			.fillMaxSize()
 			.minHeight(100.vh)
 			.textAlign(TextAlign.Center)
+			.fontFamily("Noto Sans")
 			.padding(leftRight = 16.px)
 	) {
 		SpanText(
@@ -54,23 +56,13 @@ fun HeroSection() {
 					.margin(bottom = 8.px)
 			)
 			Row {
-				SpanText(
-					text = "building things that ",
-					modifier = Modifier
-						.color(Theme.TEXT_SECONDARY.rgb)
-				)
-				SpanText(
-					text = "shouldn't",
-					modifier = Modifier
-						.color(Theme.ACCENT_TEAL.rgb)
-				)
-				SpanText(
-					text = " crash!",
-					modifier = Modifier
-						.color(Theme.TEXT_SECONDARY.rgb)
-				)
+				SpanText(text = "building things that ", modifier = Modifier.color(Theme.TEXT_SECONDARY.rgb))
+				SpanText(text = "shouldn't", modifier = Modifier.color(Theme.ACCENT_TEAL.rgb))
+				SpanText(text = " crash!", modifier = Modifier.color(Theme.TEXT_SECONDARY.rgb))
 			}
 		}
-
 	}
 }
+
+
+
