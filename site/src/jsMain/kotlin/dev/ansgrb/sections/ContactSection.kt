@@ -10,15 +10,19 @@ import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.Transition
+import com.varabyte.kobweb.compose.css.disabled
 import com.varabyte.kobweb.compose.dom.svg.Text
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.style.KobwebComposeStyleSheet.style
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.attrsModifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.alignContent
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
+import com.varabyte.kobweb.compose.ui.modifiers.border
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
 import com.varabyte.kobweb.compose.ui.modifiers.boxShadow
 import com.varabyte.kobweb.compose.ui.modifiers.classNames
@@ -26,6 +30,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.flex
 import com.varabyte.kobweb.compose.ui.modifiers.flexWrap
+import com.varabyte.kobweb.compose.ui.modifiers.fontFamily
 import com.varabyte.kobweb.compose.ui.modifiers.fontSize
 import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
@@ -35,6 +40,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.margin
 import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
 import com.varabyte.kobweb.compose.ui.modifiers.onClick
+import com.varabyte.kobweb.compose.ui.modifiers.outline
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.size
 import com.varabyte.kobweb.compose.ui.modifiers.textAlign
@@ -44,6 +50,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.width
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.silk.components.forms.InputStyle
+import com.varabyte.kobweb.silk.components.forms.InputVars
 import com.varabyte.kobweb.silk.components.icons.fa.FaEnvelope
 import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
 import com.varabyte.kobweb.silk.components.icons.fa.FaGithubAlt
@@ -58,6 +65,7 @@ import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.style.selectors.focus
 import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
@@ -67,6 +75,7 @@ import org.jetbrains.compose.web.attributes.disabled
 import org.jetbrains.compose.web.attributes.onSubmit
 import org.jetbrains.compose.web.attributes.placeholder
 import org.jetbrains.compose.web.css.FlexWrap
+import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.keywords.auto
 import org.jetbrains.compose.web.css.ms
 import org.jetbrains.compose.web.css.percent
@@ -220,184 +229,220 @@ fun ContactSection() {
 @Composable
 private fun ContactFormComponent() {
 	val breakpoint = rememberBreakpoint()
-	Form(
-		action = null,
-		attrs = Modifier.attrsModifier { attr("method", "POST") }.toAttrs()
-	) {
-		Column {
-			Label(
-				attrs = Modifier
-					.classNames("form-label")
-					.textAlign(TextAlign.Start)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fillMaxWidth()
-					.textAlign(TextAlign.Start)
-					.fontSize(14.px)
-					.fontWeight(FontWeight.SemiBold)
-					.fontStyle(FontStyle.Normal)
-					.margin(bottom = 8.px)
-					.toAttrs(),
-				forId = "inputName"
-			) {
-				Text("Name")
-			}
-			Input(
-				type = InputType.Text,
-				attrs = InputStyle.toModifier()
-					.id("inputName")
-					.classNames("form-control")
-					.padding(all = 12.px)
-					.margin(bottom = 10.px)
-					.width(
-						if (breakpoint >= Breakpoint.MD) 500.px
-						else 250.px
-					)
-					.height(48.px)
-					.backgroundColor(Theme.BACKGROUND.rgb)
-					.boxShadow(0.px, 0.px, 0.px, 0.px, null)
-					.attrsModifier {
-						attr("placeholder", "Your name")
-						attr("name", "name")
-						attr("required", "true")
-					}
-					.toAttrs()
-			)
-			Label(
-				attrs = Modifier
-					.classNames("form-label")
-					.textAlign(TextAlign.Start)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fillMaxWidth()
-					.textAlign(TextAlign.Start)
-					.fontSize(14.px)
-					.fontWeight(FontWeight.SemiBold)
-					.fontStyle(FontStyle.Normal)
-					.margin(bottom = 8.px)
-					.toAttrs(),
-				forId = "inputEmail"
-			) {
-				Text("Email")
-			}
-			Input(
-				type = InputType.Text,
-				attrs = InputStyle.toModifier()
-					.id("inputEmail")
-					.classNames("form-control")
-					.padding(all = 12.px)
-					.margin(bottom = 10.px)
-					.width(
-						if (breakpoint >= Breakpoint.MD) 500.px
-						else 250.px
-					)
-					.height(48.px)
-					.backgroundColor(Theme.BACKGROUND.rgb)
-					.boxShadow(0.px, 0.px, 0.px, 0.px, null)
-					.attrsModifier {
-						attr("placeholder", "Your email")
-						attr("name", "email")
-						attr("required", "true")
-					}
-					.toAttrs()
-			)
-			Label(
-				attrs = Modifier
-					.classNames("form-label")
-					.textAlign(TextAlign.Start)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fillMaxWidth()
-					.textAlign(TextAlign.Start)
-					.fontSize(14.px)
-					.fontWeight(FontWeight.SemiBold)
-					.fontStyle(FontStyle.Normal)
-					.margin(bottom = 8.px)
-					.toAttrs(),
-				forId = "inputSubject"
-			) {
-				Text("Subject")
-			}
-			Input(
-				type = InputType.Text,
-				attrs = InputStyle.toModifier()
-					.id("inputName")
-					.classNames("form-control")
-					.padding(all = 12.px)
-					.margin(bottom = 10.px)
-					.width(
-						if (breakpoint >= Breakpoint.MD) 500.px
-						else 250.px
-					)
-					.height(48.px)
-					.backgroundColor(Theme.BACKGROUND.rgb)
-					.boxShadow(0.px, 0.px, 0.px, 0.px, null)
-					.attrsModifier {
-						attr("placeholder", "Subject")
-						attr("name", "subject")
-						attr("required", "true")
-					}
-					.toAttrs()
-			)
-			Label(
-				attrs = Modifier
-					.classNames("form-label")
-					.textAlign(TextAlign.Start)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fillMaxWidth()
-					.textAlign(TextAlign.Start)
-					.fontSize(14.px)
-					.fontWeight(FontWeight.SemiBold)
-					.fontStyle(FontStyle.Normal)
-					.margin(bottom = 8.px)
-					.toAttrs(),
-				forId = "inputMessage"
-			) {
-				Text("Message")
-			}
-			TextArea(
-				attrs = InputStyle.toModifier()
-					.id("inputMessage")
-					.classNames("form-control")
-					.height(150.px)
-					.margin(bottom = 20.px)
-					.width(
-						if (breakpoint >= Breakpoint.MD) 500.px else 250.px
-					)
-					.backgroundColor(Theme.BACKGROUND.rgb)
-					.boxShadow(0.px, 0.px, 0.px, 0.px, null)
-					.padding(12.px)
-					.attrsModifier {
-						attr("placeholder", "Your message")
-						attr("name", "message")
-						attr("required", "true")
-					}
-					.toAttrs()
-			)
-			Box(
-				contentAlignment = Alignment.CenterStart,
-				modifier = Modifier.fillMaxWidth()
-			) {
-				Button(
-					attrs = MainBtnStyle.toModifier()
-						.padding(left = 24.px, right = 24.px)
-						.height(48.px)
+
+	var name by remember { mutableStateOf("") }
+	var email by remember { mutableStateOf("") }
+	var subject by remember { mutableStateOf("") }
+	var message by remember { mutableStateOf("") }
+	var submitted by remember { mutableStateOf(false) }
+
+	val isValid = name.isNotBlank() && email.contains("@") && message.isNotBlank()
+
+
+	if (submitted) {
+		SpanText(
+			text = "Thank you for your message! I'll get back to you soon.",
+			modifier = Modifier
+				.margin(top = 8.px)
+		)
+	} else {
+		Form(
+			action = null,
+			attrs = Modifier.attrsModifier { attr("method", "POST") }.toAttrs()
+		) {
+			Column {
+				Label(
+					attrs = Modifier
+						.classNames("form-label")
+						.textAlign(TextAlign.Start)
+						.color(Theme.TEXT_PRIMARY.rgb)
+						.fillMaxWidth()
+						.textAlign(TextAlign.Start)
 						.fontSize(14.px)
 						.fontWeight(FontWeight.SemiBold)
-						.borderRadius(8.px)
-						.margin(bottom = 20.px)
-						.backgroundColor(Theme.ACCENT_TEAL.rgb)
-						.onClick {
-							console.log("Submit form")
-						}
-						.toAttrs()
+						.fontStyle(FontStyle.Normal)
+						.margin(bottom = 8.px)
+						.toAttrs(),
+					forId = "inputName"
 				) {
-					SpanText(
-						text = "Send Message",
-						Modifier
-							.color(Theme.TEXT_SECONDARY.rgb)
-					)
+					Text("Name")
+				}
+				Input(
+					type = InputType.Text,
+					attrs = InputStyle.toModifier()
+						.id("inputName")
+						.classNames("form-control")
+						.padding(all = 12.px)
+						.color(Theme.TEXT_PRIMARY.rgb)
+						.fontFamily("Noto Sans")
+						.margin(bottom = 10.px)
+						.width(
+							if (breakpoint >= Breakpoint.MD) 500.px
+							else 250.px
+						)
+						.height(48.px)
+						.backgroundColor(Theme.BACKGROUND.rgb)
+						.outline(0.px, LineStyle.None, Colors.Transparent)
+						.transition(Transition.all(0.2.s))
+						.boxShadow(0.px, 0.px, 0.px, 0.px, null)
+
+						.attrsModifier {
+							attr("placeholder", "Your name")
+							attr("name", name)
+							attr("required", "true")
+						}
+						.then(InputFocusStyle.toModifier())
+						.toAttrs()
+				)
+				Label(
+					attrs = Modifier
+						.classNames("form-label")
+						.textAlign(TextAlign.Start)
+						.color(Theme.TEXT_PRIMARY.rgb)
+						.fillMaxWidth()
+						.textAlign(TextAlign.Start)
+						.fontSize(14.px)
+						.fontWeight(FontWeight.SemiBold)
+						.fontStyle(FontStyle.Normal)
+						.margin(bottom = 8.px)
+						.toAttrs(),
+					forId = "inputEmail"
+				) {
+					Text("Email")
+				}
+				Input(
+					type = InputType.Text,
+					attrs = InputStyle.toModifier()
+						.id("inputEmail")
+						.classNames("form-control")
+						.padding(all = 12.px)
+						.color(Theme.TEXT_PRIMARY.rgb)
+						.fontFamily("Noto Sans")
+						.margin(bottom = 10.px)
+						.width(
+							if (breakpoint >= Breakpoint.MD) 500.px
+							else 250.px
+						)
+						.height(48.px)
+						.backgroundColor(Theme.BACKGROUND.rgb)
+						.boxShadow(0.px, 0.px, 0.px, 0.px, null)
+						.attrsModifier {
+							attr("placeholder", "Your email")
+							attr("name", email)
+							attr("required", "true")
+						}
+						.then(InputFocusStyle.toModifier())
+						.toAttrs()
+				)
+				Label(
+					attrs = Modifier
+						.classNames("form-label")
+						.textAlign(TextAlign.Start)
+						.color(Theme.TEXT_PRIMARY.rgb)
+						.fillMaxWidth()
+						.textAlign(TextAlign.Start)
+						.fontSize(14.px)
+						.fontWeight(FontWeight.SemiBold)
+						.fontStyle(FontStyle.Normal)
+						.margin(bottom = 8.px)
+						.toAttrs(),
+					forId = "inputSubject"
+				) {
+					Text("Subject")
+				}
+				Input(
+					type = InputType.Text,
+					attrs = InputStyle.toModifier()
+						.id("inputName")
+						.classNames("form-control")
+						.padding(all = 12.px)
+						.color(Theme.TEXT_PRIMARY.rgb)
+						.fontFamily("Noto Sans")
+						.margin(bottom = 10.px)
+						.width(
+							if (breakpoint >= Breakpoint.MD) 500.px
+							else 250.px
+						)
+						.height(48.px)
+						.backgroundColor(Theme.BACKGROUND.rgb)
+						.boxShadow(0.px, 0.px, 0.px, 0.px, null)
+						.attrsModifier {
+							attr("placeholder", "Subject")
+							attr("name", subject)
+							attr("required", "true")
+						}
+						.then(InputFocusStyle.toModifier())
+						.toAttrs()
+				)
+				Label(
+					attrs = Modifier
+						.classNames("form-label")
+						.textAlign(TextAlign.Start)
+						.color(Theme.TEXT_PRIMARY.rgb)
+						.fillMaxWidth()
+						.textAlign(TextAlign.Start)
+						.fontSize(14.px)
+						.fontWeight(FontWeight.SemiBold)
+						.fontStyle(FontStyle.Normal)
+						.margin(bottom = 8.px)
+						.toAttrs(),
+					forId = "inputMessage"
+				) {
+					Text("Message")
+				}
+				TextArea(
+					attrs = InputStyle.toModifier()
+						.id("inputMessage")
+						.classNames("form-control")
+						.color(Theme.TEXT_PRIMARY.rgb)
+						.fontFamily("Noto Sans")
+						.height(150.px)
+						.margin(bottom = 20.px)
+						.width(
+							if (breakpoint >= Breakpoint.MD) 500.px else 250.px
+						)
+						.backgroundColor(Theme.BACKGROUND.rgb)
+						.boxShadow(0.px, 0.px, 0.px, 0.px, null)
+						.padding(12.px)
+						.attrsModifier {
+							attr("placeholder", "Your message")
+							attr("name", message)
+							attr("required", "true")
+						}
+						.then(InputFocusStyle.toModifier())
+						.toAttrs()
+				)
+				Box(
+					contentAlignment = Alignment.CenterStart,
+					modifier = Modifier.fillMaxWidth()
+				) {
+					Button(
+						attrs = Modifier
+							.padding(left = 24.px, right = 24.px)
+							.height(48.px)
+							.fontSize(14.px)
+							.fontWeight(FontWeight.SemiBold)
+							.borderRadius(8.px)
+							.margin(bottom = 20.px)
+							.boxShadow(0.px, 0.px, 0.px, 0.px, null)
+							.onClick {
+								console.log("Submit form")
+							}
+							.then(MainBtnStyle.toModifier())
+							.toAttrs {
+								if (!isValid) disabled()
+							}
+					) {
+						SpanText(
+							text = "Send Message",
+							Modifier
+								.color(Theme.TEXT_SECONDARY.rgb)
+						)
+					}
 				}
 			}
-		}
 
+		}
 	}
 }
 
@@ -409,101 +454,25 @@ val MainBtnStyle = CssStyle {
 	}
 	hover {
 		Modifier
-//			.color(Theme.TEXT_SECONDARY.rgb)
-			.backgroundColor(Theme.BACKGROUND.rgb)
-//			.transform { scale(1.02f) }
+			.backgroundColor(Theme.ACCENT_TEAL.rgb)
 
-	}}
-
-
-@Composable
-private fun ContactFormII(
-	modifier: Modifier = Modifier,
-	title: String = "Contact / Request a Demo"
-) {
-	var name by remember { mutableStateOf("") }
-	var email by remember { mutableStateOf("") }
-	var subject by remember { mutableStateOf("") }
-	var message by remember { mutableStateOf("") }
-	var submitted by remember { mutableStateOf(false) }
-
-	// Simple validation (extend as needed)
-	val isValid = name.isNotBlank() && email.contains("@") && message.isNotBlank()
-
-	Column(
-		modifier = modifier
-			.maxWidth(500.px)
-			.fillMaxWidth()
-			.padding(24.px)
-			.backgroundColor(Theme.CARD_BG.rgb)
-	) {
-		SpanText(
-			text = title,
-			modifier = Modifier
-				.fontSize(24.px)
-				.fontWeight(700)
-				.margin(bottom = 12.px)
-		)
-		if (submitted) {
-			SpanText(
-				text = "Thank you for your message! I’ll get back to you soon.",
-				modifier = Modifier.margin(top = 16.px)
-			)
-		} else {
-			Form(
-				attrs = {
-					onSubmit {
-						it.preventDefault()
-						submitted = true
-						// Here, integrate with backend, Formspree etc.
-					}
-				}
-			) {
-				// Name
-				Input(InputType.Text) {
-					value(name)
-					placeholder("Your name")
-					onInput { name = it.value }
-					Modifier
-						.margin(bottom = 10.px)
-						.fillMaxWidth()
-				}
-				// Email
-				Input(InputType.Email) {
-					value(email)
-					placeholder("Your email")
-					onInput { email = it.value }
-					Modifier
-						.margin(bottom = 10.px)
-						.fillMaxWidth()
-				}
-				// Subject
-				Input(InputType.Text) {
-					value(subject)
-					placeholder("Subject")
-					onInput { subject = it.value }
-					Modifier
-						.margin(bottom = 10.px)
-						.fillMaxWidth()
-				}
-				// Message
-				TextArea {
-					value(message)
-					placeholder("Your message")
-					onInput { message = it.value }
-					Modifier
-						.minHeight(120.px)
-						.margin(bottom = 18.px)
-						.fillMaxWidth()
-				}
-				// Submit
-				Button(
-					attrs = {
-						if (!isValid) disabled()
-//						Modifier.then(SubmitBtnStyle.toModifier())
-					}
-				) { SpanText("Send Message") }
-			}
-		}
 	}
+}
+
+val InputFocusStyle = CssStyle {
+	base {
+		Modifier
+			.outline(0.px, LineStyle.None, Colors.Transparent)
+			.transition(Transition.all(0.2.s))
+			.border(2.px, LineStyle.Solid, Colors.Transparent)
+	}
+	hover {
+		Modifier
+			.border(2.px, LineStyle.Solid, Theme.ACCENT_TEAL.rgb) // TODO:  add alpha to the color
+	}
+	focus {
+		Modifier
+			.border(2.px, LineStyle.Solid, Theme.ACCENT_TEAL.rgb)
+	}
+
 }
