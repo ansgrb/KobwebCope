@@ -38,6 +38,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.onClick
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.size
 import com.varabyte.kobweb.compose.ui.modifiers.textAlign
+import com.varabyte.kobweb.compose.ui.modifiers.transform
 import com.varabyte.kobweb.compose.ui.modifiers.transition
 import com.varabyte.kobweb.compose.ui.modifiers.width
 import com.varabyte.kobweb.compose.ui.toAttrs
@@ -371,18 +372,28 @@ private fun ContactFormComponent() {
 					.toAttrs()
 			)
 			Box(
-				contentAlignment = Alignment.Center,
+				contentAlignment = Alignment.CenterStart,
 				modifier = Modifier.fillMaxWidth()
 			) {
 				Button(
 					attrs = MainBtnStyle.toModifier()
+						.padding(left = 24.px, right = 24.px)
+						.height(48.px)
+						.fontSize(14.px)
+						.fontWeight(FontWeight.SemiBold)
+						.borderRadius(8.px)
 						.margin(bottom = 20.px)
+						.backgroundColor(Theme.ACCENT_TEAL.rgb)
 						.onClick {
 							console.log("Submit form")
 						}
 						.toAttrs()
 				) {
-					Text("Send Message")
+					SpanText(
+						text = "Send Message",
+						Modifier
+							.color(Theme.TEXT_SECONDARY.rgb)
+					)
 				}
 			}
 		}
@@ -393,11 +404,15 @@ private fun ContactFormComponent() {
 val MainBtnStyle = CssStyle {
 	base {
 		Modifier
-			.width(100.px)
+			.backgroundColor(Theme.BACKGROUND.rgb)
 			.transition(Transition.all(0.2.s))
 	}
 	hover {
-		Modifier.width(120.px)
+		Modifier
+//			.color(Theme.TEXT_SECONDARY.rgb)
+			.backgroundColor(Theme.BACKGROUND.rgb)
+//			.transform { scale(1.02f) }
+
 	}}
 
 
