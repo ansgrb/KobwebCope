@@ -226,7 +226,7 @@ private fun ContactFormComponent() {
 			Column {
 				Label(
 					attrs = Modifier
-						.classNames("form-label")
+//						.classNames("form-label")
 						.textAlign(TextAlign.Start)
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.fillMaxWidth()
@@ -244,7 +244,7 @@ private fun ContactFormComponent() {
 					type = InputType.Text,
 					attrs = InputStyle.toModifier()
 						.id("inputName")
-						.classNames("form-control")
+//						.classNames("form-control")
 						.padding(all = 12.px)
 						.borderRadius(8.px)
 						.color(Theme.TEXT_PRIMARY.rgb)
@@ -262,7 +262,7 @@ private fun ContactFormComponent() {
 
 						.attrsModifier {
 							attr("placeholder", "Your name")
-							attr("name", name)
+							attr("name", "name")
 							attr("required", "true")
 						}
 						.then(InputFocusStyle.toModifier())
@@ -270,7 +270,7 @@ private fun ContactFormComponent() {
 				)
 				Label(
 					attrs = Modifier
-						.classNames("form-label")
+//						.classNames("form-label")
 						.textAlign(TextAlign.Start)
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.fillMaxWidth()
@@ -288,7 +288,7 @@ private fun ContactFormComponent() {
 					type = InputType.Text,
 					attrs = InputStyle.toModifier()
 						.id("inputEmail")
-						.classNames("form-control")
+//						.classNames("form-control")
 						.padding(all = 12.px)
 						.borderRadius(8.px)
 						.color(Theme.TEXT_PRIMARY.rgb)
@@ -303,7 +303,7 @@ private fun ContactFormComponent() {
 						.boxShadow(0.px, 0.px, 0.px, 0.px, null)
 						.attrsModifier {
 							attr("placeholder", "Your email")
-							attr("name", email)
+							attr("name", "email")
 							attr("required", "true")
 						}
 						.then(InputFocusStyle.toModifier())
@@ -311,7 +311,7 @@ private fun ContactFormComponent() {
 				)
 				Label(
 					attrs = Modifier
-						.classNames("form-label")
+//						.classNames("form-label")
 						.textAlign(TextAlign.Start)
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.fillMaxWidth()
@@ -329,7 +329,7 @@ private fun ContactFormComponent() {
 					type = InputType.Text,
 					attrs = InputStyle.toModifier()
 						.id("inputSubject")
-						.classNames("form-control")
+//						.classNames("form-control")
 						.padding(all = 12.px)
 						.borderRadius(8.px)
 						.color(Theme.TEXT_PRIMARY.rgb)
@@ -344,7 +344,7 @@ private fun ContactFormComponent() {
 						.boxShadow(0.px, 0.px, 0.px, 0.px, null)
 						.attrsModifier {
 							attr("placeholder", "Subject")
-							attr("name", subject)
+							attr("name", "subject")
 							attr("required", "true")
 						}
 						.then(InputFocusStyle.toModifier())
@@ -352,7 +352,7 @@ private fun ContactFormComponent() {
 				)
 				Label(
 					attrs = Modifier
-						.classNames("form-label")
+//						.classNames("form-label")
 						.textAlign(TextAlign.Start)
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.fillMaxWidth()
@@ -369,7 +369,7 @@ private fun ContactFormComponent() {
 				TextArea(
 					attrs = InputStyle.toModifier()
 						.id("inputMessage")
-						.classNames("form-control")
+//						.classNames("form-control")
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.fontFamily("Noto Sans")
 						.height(150.px)
@@ -383,7 +383,7 @@ private fun ContactFormComponent() {
 						.padding(12.px)
 						.attrsModifier {
 							attr("placeholder", "Your message")
-							attr("name", message)
+							attr("name", "message")
 							attr("required", "true")
 						}
 						.then(InputFocusStyle.toModifier())
