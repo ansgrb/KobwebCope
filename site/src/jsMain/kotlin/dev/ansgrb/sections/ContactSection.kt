@@ -176,8 +176,6 @@ fun ContactSection() {
 						.backgroundColor(Theme.CARD_BG.rgb)
 						.borderRadius(16.px)
 						.padding(24.px)
-//						.fillMaxWidth()
-//						.flexWrap(FlexWrap.Wrap)
 				) {
 					Column {
 						SpanText(
@@ -190,34 +188,7 @@ fun ContactSection() {
 
 						)
 						ContactFormComponent()
-//						SpanText(
-//							text = "Name",
-//							modifier = Modifier
-//								.color(Theme.TEXT_PRIMARY.rgb)
-//								.fontSize(16.px)
-//								.fontWeight(FontWeight.SemiBold)
-//								.margin(bottom = 4.px)
-//						)
-//						Input(
-//							type = InputType.Text,
-//							attrs = {
-//								id("name")
-//								onInput { console.log(it.value) }
-//								placeholder("Your name")
-//								value("")
-////								disabled()
-//								style {
-//									Modifier
-//										.size(width = 100.percent, height = 48.px)
-//										.backgroundColor(Theme.CARD_BG.rgb)
-//										.borderRadius(16.px)
-//										.padding(leftRight = 16.px)
-//										.margin(bottom = 16.px)
-//								}
-//							}
-//						)
 					}
-
 				}
 			}
 		}
@@ -247,8 +218,10 @@ private fun ContactFormComponent() {
 		)
 	} else {
 		Form(
-			action = null,
-			attrs = Modifier.attrsModifier { attr("method", "POST") }.toAttrs()
+			action = "https://formspree.io/f/xrbqeoae",
+			attrs = Modifier
+				.attrsModifier { attr("method", "POST") }
+				.toAttrs()
 		) {
 			Column {
 				Label(
@@ -273,6 +246,7 @@ private fun ContactFormComponent() {
 						.id("inputName")
 						.classNames("form-control")
 						.padding(all = 12.px)
+						.borderRadius(8.px)
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.fontFamily("Noto Sans")
 						.margin(bottom = 10.px)
@@ -316,6 +290,7 @@ private fun ContactFormComponent() {
 						.id("inputEmail")
 						.classNames("form-control")
 						.padding(all = 12.px)
+						.borderRadius(8.px)
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.fontFamily("Noto Sans")
 						.margin(bottom = 10.px)
@@ -353,9 +328,10 @@ private fun ContactFormComponent() {
 				Input(
 					type = InputType.Text,
 					attrs = InputStyle.toModifier()
-						.id("inputName")
+						.id("inputSubject")
 						.classNames("form-control")
 						.padding(all = 12.px)
+						.borderRadius(8.px)
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.fontFamily("Noto Sans")
 						.margin(bottom = 10.px)
@@ -397,6 +373,7 @@ private fun ContactFormComponent() {
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.fontFamily("Noto Sans")
 						.height(150.px)
+						.borderRadius(8.px)
 						.margin(bottom = 20.px)
 						.width(
 							if (breakpoint >= Breakpoint.MD) 500.px else 250.px
@@ -430,7 +407,7 @@ private fun ContactFormComponent() {
 							}
 							.then(MainBtnStyle.toModifier())
 							.toAttrs {
-								if (!isValid) disabled()
+//								if (!isValid) disabled()
 							}
 					) {
 						SpanText(
@@ -441,7 +418,6 @@ private fun ContactFormComponent() {
 					}
 				}
 			}
-
 		}
 	}
 }
