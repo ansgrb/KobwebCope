@@ -81,6 +81,7 @@ import org.jetbrains.compose.web.css.ms
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.s
+import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Form
 import org.jetbrains.compose.web.dom.Input
@@ -105,7 +106,8 @@ fun ContactSection() {
 		) {
 			SimpleGrid(
 				numColumns = numColumns(base = 1, sm = 2, md = 2),
-				modifier = Modifier.fillMaxWidth()
+				modifier = Modifier
+					.fillMaxWidth()
 			) {
 				Column {
 					SpanText(
@@ -175,6 +177,8 @@ fun ContactSection() {
 					Modifier
 						.backgroundColor(Theme.CARD_BG.rgb)
 						.borderRadius(16.px)
+						.margin(all = 16.px)
+						.flexWrap(FlexWrap.Wrap)
 						.padding(24.px)
 				) {
 					Column {
