@@ -8,15 +8,27 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
 import com.varabyte.kobweb.compose.ui.modifiers.fontFamily
 import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
+import com.varabyte.kobweb.compose.ui.modifiers.padding
+import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import org.jetbrains.compose.web.css.px
 
 @Composable
 fun SectionsWrapper() {
+	val breakpoint = rememberBreakpoint()
+
 	Column(
 		horizontalAlignment = Alignment.CenterHorizontally,
 		modifier = Modifier
 			.fillMaxSize()
 			.fontFamily("Noto Sans")
 			.fontStyle(FontStyle.Italic)
+			.padding(
+				top = when {
+					breakpoint <= Breakpoint.SM -> 16.px
+					else -> 32.px
+				}
+			)
 	) {
 		HeroSection()
 		AboutSection()
