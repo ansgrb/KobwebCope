@@ -1,12 +1,7 @@
 package dev.ansgrb.sections
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import com.varabyte.kobweb.compose.css.CSSLengthOrPercentageNumericValue
-import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.Transition
@@ -20,24 +15,18 @@ import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.border
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
-import com.varabyte.kobweb.compose.ui.modifiers.boxShadow
 import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
-import com.varabyte.kobweb.compose.ui.modifiers.flexWrap
 import com.varabyte.kobweb.compose.ui.modifiers.fontFamily
 import com.varabyte.kobweb.compose.ui.modifiers.fontSize
-import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
 import com.varabyte.kobweb.compose.ui.modifiers.height
-import com.varabyte.kobweb.compose.ui.modifiers.id
 import com.varabyte.kobweb.compose.ui.modifiers.margin
 import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
-import com.varabyte.kobweb.compose.ui.modifiers.onClick
 import com.varabyte.kobweb.compose.ui.modifiers.outline
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.textAlign
 import com.varabyte.kobweb.compose.ui.modifiers.transition
-import com.varabyte.kobweb.compose.ui.modifiers.width
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.silk.components.forms.InputStyle
@@ -57,7 +46,6 @@ import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import dev.ansgrb.models.Theme
 import org.jetbrains.compose.web.attributes.InputType
-import org.jetbrains.compose.web.css.FlexWrap
 import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.keywords.auto
 import org.jetbrains.compose.web.css.percent
@@ -69,7 +57,6 @@ import org.jetbrains.compose.web.dom.Input
 import org.jetbrains.compose.web.dom.Label
 import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.dom.TextArea
-import kotlin.compareTo
 
 @Composable
 fun ContactSection() {
@@ -143,13 +130,16 @@ fun ContactSection() {
 					SocialLinksList()
 				}
 				Column(
-					Modifier
-						.backgroundColor(Theme.CARD_BG.rgb)
-						.borderRadius(16.px)
-						.padding(
-							when {
-								breakpoint <= Breakpoint.SM -> 20.px
-								else -> 24.px
+					horizontalAlignment = when {
+						breakpoint <= Breakpoint.MD -> Alignment.CenterHorizontally
+						else -> Alignment.Start
+					},
+					modifier = Modifier
+						.fillMaxWidth()
+						.margin(
+							bottom = when {
+								breakpoint <= Breakpoint.MD -> 32.px
+								else -> 0.px
 							}
 						)
 				) {
@@ -172,7 +162,6 @@ fun ContactSection() {
 			}
 		}
 	}
-
 }
 
 
@@ -196,175 +185,108 @@ private fun ContactFormComponent() {
 			}
 			.toAttrs()
 	) {
-		Column {
-			Label(
-				attrs = Modifier
-					.textAlign(TextAlign.Start)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fillMaxWidth()
-					.textAlign(TextAlign.Start)
-					.fontSize(14.px)
-					.fontWeight(FontWeight.SemiBold)
-					.fontStyle(FontStyle.Normal)
-					.margin(bottom = 8.px)
-					.toAttrs(),
-				forId = "inputName"
-			) {
+		Column(
+			modifier = Modifier
+				.fillMaxWidth()
+		) {
+
+			val labelModifier = Modifier
+				.textAlign(TextAlign.Start)
+				.color(Theme.TEXT_PRIMARY.rgb)
+				.fillMaxWidth()
+				.fontSize(14.px)
+				.fontWeight(FontWeight.SemiBold)
+				.margin(bottom = 8.px)
+
+			val inputModifier = InputStyle.toModifier()
+				.fillMaxWidth()
+				.padding(all = 12.px)
+				.borderRadius(8.px)
+				.color(Theme.TEXT_PRIMARY.rgb)
+				.fontFamily("Noto Sans")
+				.margin(bottom = when {
+					breakpoint <= Breakpoint.SM -> 16.px
+					else -> 20.px
+				})
+				.height(48.px)
+				.backgroundColor(Theme.CARD_BG.rgb)
+				.outline(0.px, LineStyle.None, Colors.Transparent)
+				.transition(Transition.all(0.2.s))
+				.then(InputFocusStyle.toModifier())
+
+			Label(attrs = labelModifier.toAttrs(), forId = "inputName") {
 				Text("Name")
 			}
 			Input(
 				type = InputType.Text,
-				attrs = InputStyle.toModifier()
-					.id("inputName")
-					.padding(all = 12.px)
-					.borderRadius(8.px)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fontFamily("Noto Sans")
-					.margin(bottom = 10.px)
-					.width(
-						if (breakpoint >= Breakpoint.MD) 500.px
-						else 250.px
-					)
-					.height(48.px)
-					.backgroundColor(Theme.BACKGROUND.rgb)
-					.outline(0.px, LineStyle.None, Colors.Transparent)
-					.transition(Transition.all(0.2.s))
-					.boxShadow(0.px, 0.px, 0.px, 0.px, null)
+				attrs = inputModifier
 					.attrsModifier {
 						attr("placeholder", "Your name")
 						attr("name", "name")
 						attr("required", "true")
 					}
-					.then(InputFocusStyle.toModifier())
 					.toAttrs()
 			)
-			Label(
-				attrs = Modifier
-					.textAlign(TextAlign.Start)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fillMaxWidth()
-					.textAlign(TextAlign.Start)
-					.fontSize(14.px)
-					.fontWeight(FontWeight.SemiBold)
-					.fontStyle(FontStyle.Normal)
-					.margin(bottom = 8.px)
-					.toAttrs(),
-				forId = "inputEmail"
-			) {
+
+			Label(attrs = labelModifier.toAttrs(), forId = "inputEmail") {
 				Text("Email")
 			}
 			Input(
-				type = InputType.Text,
-				attrs = InputStyle.toModifier()
-					.id("inputEmail")
-					.padding(all = 12.px)
-					.borderRadius(8.px)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fontFamily("Noto Sans")
-					.margin(bottom = 10.px)
-					.width(
-						if (breakpoint >= Breakpoint.MD) 500.px
-						else 250.px
-					)
-					.height(48.px)
-					.backgroundColor(Theme.BACKGROUND.rgb)
-					.boxShadow(0.px, 0.px, 0.px, 0.px, null)
+				type = InputType.Email,
+				attrs = inputModifier
 					.attrsModifier {
 						attr("placeholder", "Your email")
 						attr("name", "email")
 						attr("required", "true")
 					}
-					.then(InputFocusStyle.toModifier())
 					.toAttrs()
 			)
-			Label(
-				attrs = Modifier
-					.textAlign(TextAlign.Start)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fillMaxWidth()
-					.textAlign(TextAlign.Start)
-					.fontSize(14.px)
-					.fontWeight(FontWeight.SemiBold)
-					.fontStyle(FontStyle.Normal)
-					.margin(bottom = 8.px)
-					.toAttrs(),
-				forId = "inputSubject"
-			) {
+
+			Label(attrs = labelModifier.toAttrs(), forId = "inputSubject") {
 				Text("Subject")
 			}
 			Input(
 				type = InputType.Text,
-				attrs = InputStyle.toModifier()
-					.id("inputSubject")
-					.padding(all = 12.px)
-					.borderRadius(8.px)
-					.color(Theme.TEXT_PRIMARY.rgb)
-					.fontFamily("Noto Sans")
-					.margin(bottom = 10.px)
-					.width(
-						if (breakpoint >= Breakpoint.MD) 500.px
-						else 250.px
-					)
-					.height(48.px)
-					.backgroundColor(Theme.BACKGROUND.rgb)
-					.boxShadow(0.px, 0.px, 0.px, 0.px, null)
+				attrs = inputModifier
 					.attrsModifier {
 						attr("placeholder", "Subject")
 						attr("name", "subject")
 						attr("required", "true")
 					}
-					.then(InputFocusStyle.toModifier())
 					.toAttrs()
 			)
-			Column(
-				modifier = Modifier
-					.margin(bottom = 16.px)
-			) {
-				Label(
-					attrs = Modifier
-						.textAlign(TextAlign.Start)
-						.color(Theme.TEXT_PRIMARY.rgb)
-						.fillMaxWidth()
-						.textAlign(TextAlign.Start)
-						.fontSize(14.px)
-						.fontWeight(FontWeight.SemiBold)
-						.fontStyle(FontStyle.Normal)
-						.margin(bottom = 8.px)
-						.toAttrs(),
-					forId = "inputMessage"
-				) {
-					Text("Message")
-				}
-				TextArea(
-					attrs = InputStyle.toModifier()
-						.id("inputMessage")
-						.color(Theme.TEXT_PRIMARY.rgb)
-						.fontFamily("Noto Sans")
-						.height(150.px)
-						.borderRadius(8.px)
-						.margin(bottom = 20.px)
-						.width(
-							if (breakpoint >= Breakpoint.MD) 500.px else 250.px
-						)
-						.backgroundColor(Theme.BACKGROUND.rgb)
-						.boxShadow(0.px, 0.px, 0.px, 0.px, null)
-						.padding(12.px)
-						.attrsModifier {
-							attr("placeholder", "Your message")
-							attr("name", "message")
-							attr("required", "true")
-						}
-						.then(InputFocusStyle.toModifier())
-						.toAttrs()
-				)
+
+			Label(attrs = labelModifier.toAttrs(), forId = "inputMessage") {
+				Text("Message")
 			}
+			TextArea(
+				attrs = inputModifier
+					.height(150.px)
+					.attrsModifier {
+						attr("placeholder", "Your message")
+						attr("name", "message")
+						attr("required", "true")
+					}
+					.toAttrs()
+			)
+
 			Box(
 				contentAlignment = Alignment.CenterStart,
-				modifier = Modifier.fillMaxWidth()
+				modifier = Modifier
+					.fillMaxWidth()
+					.margin(top = when {
+						breakpoint <= Breakpoint.SM -> 16.px
+						else -> 24.px
+					})
 			) {
 				Button(
 					attrs = Modifier
-						.padding(leftRight = 24.px)
+						.padding(
+							leftRight = when {
+								breakpoint <= Breakpoint.SM -> 16.px
+								else -> 24.px
+							}
+						)
 						.height(48.px)
 						.fontSize(14.px)
 						.fontWeight(FontWeight.SemiBold)
@@ -373,12 +295,17 @@ private fun ContactFormComponent() {
 						.color(Theme.TEXT_PRIMARY.rgb)
 						.transition(Transition.all(0.2.s))
 						.then(MainBtnStyle.toModifier())
+						.fillMaxWidth(
+							when {
+								breakpoint <= Breakpoint.SM -> 100.percent
+								else -> 40.percent
+							}
+						)
 						.toAttrs()
 				) {
 					SpanText(
 						text = "Send Message",
-						Modifier
-							.color(Theme.TEXT_PRIMARY.rgb)
+						Modifier.color(Theme.TEXT_PRIMARY.rgb)
 					)
 				}
 			}
@@ -447,9 +374,6 @@ private fun SocialLinkItem(
 		}
 	}
 }
-
-
-
 
 
 val MainBtnStyle = CssStyle {
